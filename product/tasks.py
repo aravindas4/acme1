@@ -1,31 +1,17 @@
 import csv
 
 from celery import task
+from .models import Product
 
 
 @task
-def load_products(file, klass):
-    file = csv.reader(open(file), delimiter=',')
-    products = []
+def load_products():
+    file_name = '/home/creo/Documents/p.csv'
+    file = csv.reader(open(file_name), delimiter=',')
+    next(file)
 
-    count = 0
     for line in file:
-        products.append(klass(
-            name=line[0],
-            sku=line[1],
-            description=line[2]))
-        count += 1
-
-        if count == 100:
-            try:
-                klass.objects.bulk_create(products)
-            except Exception as e:
-                print(repr(e))
-
-            products = []
-    else:
-        try:
-            Product.objects.bulk_create(products)
-        except Exception as e:
-            print(repr(e))
-
+        obj, created = Product.objects.get_or_create(sku=line[1].upper())
+        obj.name = line[0]
+        obj.description = line[2]
+        obj.save()

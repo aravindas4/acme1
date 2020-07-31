@@ -11,7 +11,7 @@ class Base(TimeStampedModel):
 
 
 class Product(Base):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, null=True)
     sku = models.CharField(max_length=255, unique=True)
     description = models.TextField()
     is_active = models.BooleanField(default=True)
