@@ -80,7 +80,6 @@
 
             .button {
                 color: #FFF;
-                background-color: #619523;    /* Blue */
                 font-weight: bold;
                 padding: 10px;
                 text-align: center;
@@ -89,6 +88,14 @@
 
                 width: 200px;
                 margin: 20px auto;
+            }
+
+            .red {
+                background-color: #EB630B;
+            }
+
+            .green {
+                background-color: #619523;
             }
 
             .custom-file-input {
@@ -135,14 +142,17 @@
                   action="/products/upload/">
                 {% csrf_token %}
                 <input type="file" name="myfile" class="custom-file-input">
-                <button class='button' type="submit">Upload</button>
+                <button class='button green' type="submit">Upload</button>
               </form>
         </div>
         <div class="menu">
             <p>filter</p>
         </div>
         <div class="menu">
-            <p>Delete ALl</p>
+            <form method="post" action="/products/delete/">
+                {% csrf_token %}
+                <button class='button red' type="submit">Delete</button>
+              </form>
         </div>
     </div>
     <div>

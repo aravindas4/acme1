@@ -12,11 +12,18 @@ class ProductListView(generic.ListView):
     template_name = 'base.html'
 
 
-def simple_upload(request):
+def upload_csv(request):
     if request.method == 'POST' and request.FILES['myfile']:
         myfile = request.FILES['myfile']
         fs = FileSystemStorage()
         filename = fs.save(myfile.name, myfile)
         load_products(fs.path(filename))
+        return redirect('product-list')
+    return redirect('product-list')
+
+
+def delete_products(request):
+    if request.method == 'POST':
+        Product.objects.all().delete()
         return redirect('product-list')
     return redirect('product-list')
