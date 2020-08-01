@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<!--    <link href="googlefont.css" rel="stylesheet">-->
+    <title>ACME | Product Management</title>
+    <style>
+            @charset "UTF-8";
+            @import url("https://fonts.googleapis.com/css?family=Roboto:400,100,bold");
+
+            * {
+              margin: 0;
+              padding: 0;
+              box-sizing: border-box;
+            }
+
+            html {
+                font-family: Roboto;
+            }
+            .menu-container {
+                  margin: 1% 0;
+                  color: #fff;
+                  background-color: #5995DA;
+                  padding: 20px 0;
+                  display: flex;
+                  justify-content: center;
+            }
+
+            .header {
+                background-color: #52958A;
+                text-align: center;
+            }
+
+            .menu {
+                  margin: 0 1%;
+                  border: 1px solid #fff;
+                  width: 75%;
+                  display: flex;
+                  justify-content: space-around;
+            }
+
+            .product-grid-container {
+                display: flex;
+                justify-content: center;
+            }
+
+            .product-grid {
+                display: flex;
+                justify-content: space-between;
+                flex-direction: column;
+                flex-wrap: wrap;
+            }
+
+            .product-grid-item {
+              border: 1px;
+              width: 25%;
+              height: 10%;
+              border: 1px;
+              text-align: center;
+              font-weight: bold;
+            }
+
+            table {
+                border-collapse: collapse;
+                width: 100%;
+            }
+            .table-boder td , .table-boder th{
+                border: 1px solid gray;
+            }
+            .table-boder th, .baground{
+                background: #FCDDDC;
+                font-weight: bold;
+            }
+            .heading-info{
+                padding-right: 10%;
+            }
+            .bolder {
+                font-weight: bold;
+            }
+
+            .button {
+                color: #FFF;
+                background-color: #619523;    /* Blue */
+                font-weight: bold;
+                padding: 10px;
+                text-align: center;
+                border: 2px solid #5D6063;    /* Dark gray */
+                border-radius: 5px;
+
+                width: 200px;
+                margin: 20px auto;
+            }
+
+            .custom-file-input {
+                color: transparent;
+            }
+            .custom-file-input::-webkit-file-upload-button {
+                visibility: hidden;
+            }
+            .custom-file-input::before {
+                  content: 'Select some files';
+                  color: black;
+                  display: inline-block;
+                  background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
+                  border: 2px solid #999;
+                  border-radius: 5px;
+                  padding: 10px;
+                  outline: none;
+                  white-space: nowrap;
+                  -webkit-user-select: none;
+                  cursor: pointer;
+                  text-shadow: 1px 1px #fff;
+                  font-weight: 700;
+                  font-size: 10pt;
+            }
+            .custom-file-input:hover::before {
+              border-color: black;
+            }
+            .custom-file-input:active {
+              outline: 0;
+            }
+            .custom-file-input:active::before {
+              background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+            }
+
+        </style>
+</head>
+<body>
+<h1>
+    <div class="header">ACME Inc Product Management</div></h1>
+<div>
+    <div class="menu-container">
+        <div class="menu">
+            <form method="post" enctype="multipart/form-data"
+                  action="/products/upload/">
+                {% csrf_token %}
+                <input type="file" name="myfile" class="custom-file-input">
+                <button class='button' type="submit">Upload</button>
+              </form>
+        </div>
+        <div class="menu">
+            <p>filter</p>
+        </div>
+        <div class="menu">
+            <p>Delete ALl</p>
+        </div>
+    </div>
+    <div>
+
+    </div>
+    <div class="product-grid-container">
+        <div class='product-grid'>
+          <table class="table-boder">
+            <thead>
+                <th width="5%" style="text-align: center;">#</th>
+                <th width="25%" style="text-align: center;">Product Name</th>
+                <th width="25%" style="text-align: center;">SKU</th>
+                <th width="45%" style="text-align: center;">Description</th>
+            </thead>
+            <tbody>
+                {% for product in product_list %}
+                        <tr>
+                            <td colspan="4">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;"> {{ forloop.counter }}</td>
+                            <td style="font-weight: bold;text-align: center;">
+                                {{product.name}}
+                            </td>
+                            <td style="text-align: center;">
+                                {{product.sku}}
+                            </td>
+                            <td style="text-align: center;">
+                                 {{product.description}}
+                            </td>
+                        </tr>
+                    {% endfor %}
+            </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
