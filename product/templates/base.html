@@ -188,12 +188,57 @@
                 justify-content: space-between;
             }
 
+            .pagination {
+                margin-top: 1em;
+                display: flex;
+                justify-content: space-between;
+                background-color: #6D85C7;
+            }
+
+            .pagination a {
+                text-decoration: none;
+            }
+
+            .pagination-number {
+                padding: 0.5em 0.8em;
+                border-radius: 2px;
+                color: #fff;
+                background-color: #6D85C7;
+                display: inline;
+            }
+
+            .pagination-number:hover,
+            .pagination-current {
+                background-color: #3354AA;
+            }
+
+            .pagination-action {
+                margin: 0 0.1em;
+                display: inline-block;
+                padding: 0.5em 0.5em;
+                color: #B9B9B9;
+                font-size: 1.3em;
+            }
+
+            .pagination-action:hover,
+            .pagination-previous,
+            .pagination-next {
+                color: #3354AA;
+            }
+            ul li {
+              display:inline;
+            }
+
+           .active {
+                background: red;
+           }
+
         </style>
 </head>
 <body>
 <h1>
     <div class="header">ACME Inc Product Management</div></h1>
-<div>
+    <div>
     <div class="menu-container">
         <div class="menu quarter">
             <form method="post" enctype="multipart/form-data"
@@ -232,10 +277,10 @@
             {% if product_list %}
               <table class="table-boder">
                 <thead>
-                    <th width="5%" style="text-align: center;">#</th>
+<!--                    <th width="5%" style="text-align: center;">#</th>-->
                     <th width="25%" style="text-align: center;">Product Name</th>
                     <th width="25%" style="text-align: center;">SKU</th>
-                    <th width="45%" style="text-align: center;">Description</th>
+                    <th width="50%" style="text-align: center;">Description</th>
                 </thead>
                 <tbody>
                     {% for product in product_list %}
@@ -243,7 +288,6 @@
                                 <td colspan="4">&nbsp;</td>
                             </tr>
                             <tr>
-                                <td style="text-align: center;"> {{ forloop.counter }}</td>
                                 <td style="font-weight: bold;text-align: center;">
                                     {{product.name}}
                                 </td>
@@ -263,10 +307,31 @@
         </div>
     </div>
 </div>
+    <hr>
+        <div class="pagination">
+            <ul>
+                <div class="pagination-number">
+                    {% if page_obj.has_previous %}
+                        <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+                    {% else %}
+                        <li class="grey"><span>&laquo;</span></li>
+                    {% endif %}
+                </div>
+                {% for i in paginator.page_range %}
+                    {% if page_obj.number == i %}
+                        <li class="active"><span>{{ i }} <span class="sr-only"></span></span></li>
+                    {% endif %}
+                {% endfor %}
+                <div class="pagination-number">
+                    {% if page_obj.has_next %}
+                        <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+                    {% else %}
+                        <li class="grey"><span>&raquo;</span></li>
+                    {% endif %}
+                </div>
+            </ul>
+        </div>
 <script>
-    function submit() {
-        document.getElementById("filter").reset();
-    }
 </script>
 </body>
 </html>

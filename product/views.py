@@ -11,7 +11,7 @@ class ProductListView(generic.ListView):
     context_object_name = 'product_list'
     queryset = Product.objects.all()
     template_name = 'base.html'
-    paginate_by = 2
+    paginate_by = 50
 
     def get_queryset(self):
         query = self.request.GET.get('search', None)
@@ -23,7 +23,6 @@ class ProductListView(generic.ListView):
             object_list = self.queryset.all()
 
         _filter = self.request.GET.get('is_active', None)
-        print(bool(_filter))
 
         if _filter == 'True':
             object_list = self.queryset.filter(is_active=True)
@@ -38,7 +37,7 @@ def upload_csv(request):
         myfile = request.FILES['myfile']
         fs = FileSystemStorage()
         filename = fs.save(myfile.name, myfile)
-        load_products(fs.path(filename))
+        load_products.delay(fs.path(filename))
         return redirect('product-list')
     return redirect('product-list')
 
