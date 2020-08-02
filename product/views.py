@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.views import generic
 from .models import Product
 from django.core.files.storage import FileSystemStorage
@@ -10,6 +11,26 @@ class ProductListView(generic.ListView):
     context_object_name = 'product_list'
     queryset = Product.objects.all()
     template_name = 'base.html'
+    paginate_by = 2
+
+    def get_queryset(self):
+        query = self.request.GET.get('search', None)
+        if query:
+            object_list = self.queryset.filter(
+                Q(name__icontains=query) | Q(sku__icontains=query) | Q(description__icontains=query)
+            )
+        else:
+            object_list = self.queryset.all()
+
+        _filter = self.request.GET.get('is_active', None)
+        print(bool(_filter))
+
+        if _filter == 'True':
+            object_list = self.queryset.filter(is_active=True)
+        elif _filter == 'False':
+            object_list = self.queryset.filter(is_active=False)
+
+        return object_list
 
 
 def upload_csv(request):

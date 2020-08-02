@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'product',
+
+    # 3rd Party
+    'django_filters',
 ]
 
 MIDDLEWARE = [
