@@ -13,7 +13,7 @@ Acme Inc product a management
 ## Setup for development
 * Create and activate env
 * Install packages using`pip install requirements.txt`
-* Create `db.sqlite3` DB and run `./mangae.py migrate`
+* Create Postgres DB and run `./mangae.py migrate`
 * `.env` and replace dummy values with actual crednetials
 * Install Rabiit MQ : `sudo apt-get install rabbitmq-server -y --fix-missing`
 * Run local server using `./mangae.py runserver`
