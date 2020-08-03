@@ -1,7 +1,6 @@
+celery==4.4.6
 Django==3.0.8
-
 django-model-utils==4.0.0
 librabbitmq==2.0.0
-
 psycopg2==2.8.5
 python-decouple==3.3
