@@ -4,7 +4,7 @@ Acme Inc product a management
 ### Technology 
 
 * Python (Django)
-* SQLite 
+* Postgres
 
 ## Code base contains 
 * Db model
