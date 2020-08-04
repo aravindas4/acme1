@@ -163,3 +163,4 @@ venv.bak/
 htmlcov
 static
 media/*
+db.sqlite3
