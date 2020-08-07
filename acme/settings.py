@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'product',
 
     # 3rd Party
+    'django_celery_results',
 ]
 
 MIDDLEWARE = [
@@ -131,3 +132,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # BROKER_URL = 'amqp://guest:guest@localhost:5672/'
 BROKER_POOL_LIMIT = 1
 BROKER_URL = '	amqp://zsliuczk:cElzI2cXLt1R2HMvDsmsmkZo3ZhwOads@finch.rmq.cloudamqp.com/zsliuczk'
+CELERY_RESULT_BACKEND = 'django-db'
+CELERY_CACHE_BACKEND = 'django-cache'
